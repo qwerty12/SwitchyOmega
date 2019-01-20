@@ -4,6 +4,7 @@ class ChromeTabs
 
   constructor: (@actionForUrl) ->
     @_dirtyTabs = {}
+    @_iconUpdatetime = {}
     return
 
   ignoreError: ->
@@ -69,6 +70,11 @@ class ChromeTabs
 
   setIcon: (icon, tabId) ->
     return unless icon?
+    ctime = new Date().getTime()
+    if @_iconUpdatetime[tabId]? and (ctime - @_iconUpdatetime[tabId]) < 1000
+      return # skip if last update < 1000ms
+    else
+      @_iconUpdatetime[tabId] = ctime
     params = {
       imageData: icon
     }
