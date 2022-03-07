@@ -649,7 +649,7 @@ class Options
   # A value is an error if `value instanceof Error`. Otherwise the value is an
   # updated profile.
   ###
-  updateProfile: (name, opt_bypass_cache) ->
+  updateProfile: (name, opt_bypass_cache = true) ->
     @log.method('Options#updateProfile', this, arguments)
     results = {}
     OmegaPac.Profiles.each @_options, (key, profile) =>
