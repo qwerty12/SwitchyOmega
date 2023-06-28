@@ -42,6 +42,7 @@
     "webRequest",
     "downloads",
     "webRequestBlocking",
+    "webRequestAuthProvider",
     "contextMenus",
 
     "http://*/*",
