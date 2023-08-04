@@ -18,12 +18,15 @@ class ChromeTabs
         return if chrome.runtime.lastError
         if @_dirtyTabs.hasOwnProperty(info.tabId)
           @onUpdated tab.id, {}, tab
+    chrome.tabs.onRemoved.addListener (tabId) =>
+      delete @_iconUpdatetime[tabId]
 
   resetAll: (action) ->
     @_defaultAction = action
     chrome.tabs.query {}, (tabs) =>
       @_dirtyTabs = {}
       tabs.forEach (tab) =>
+        delete @_iconUpdatetime[tab.id]
         @_dirtyTabs[tab.id] = tab.id
         @onUpdated tab.id, {}, tab if tab.active
     title = if @_canSetPopup() then action.title else action.shortTitle
