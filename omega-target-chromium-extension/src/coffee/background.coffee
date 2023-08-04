@@ -45,7 +45,9 @@ drawIcon = (resultColor, profileColor) ->
   return icon if icon
   try
     if not drawContext?
-      drawContext = document.getElementById('canvas-icon').getContext('2d')
+      drawContext = document.getElementById('canvas-icon').getContext('2d', {
+        willReadFrequently: true
+      })
 
     icon = {}
     size = 32
