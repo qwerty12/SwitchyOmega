@@ -69,7 +69,7 @@ module.exports = class Inspect
     @_enabled = false
 
   propForMenuItem:
-    'inspectPage': 'pageUrl'
+    #'inspectPage': 'pageUrl'
     'inspectFrame': 'frameUrl'
     'inspectLink': 'linkUrl'
     'inspectElement': 'srcUrl'

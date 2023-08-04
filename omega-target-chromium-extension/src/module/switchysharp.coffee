@@ -9,6 +9,7 @@ module.exports = class SwitchySharp
 
   monitor: (action) ->
     return if location.href.substr(0, 4) == 'moz-'
+    return if location.href.startsWith('chrome')
     if not port? and not @_monitorTimerId?
       @_monitorTimerId = setInterval @_connect.bind(this), 5000
       if action != 'reconnect'
