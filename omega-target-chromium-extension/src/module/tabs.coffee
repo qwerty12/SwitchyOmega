@@ -25,8 +25,8 @@ class ChromeTabs
     @_defaultAction = action
     chrome.tabs.query {}, (tabs) =>
       @_dirtyTabs = {}
+      @_iconUpdatetime = {}
       tabs.forEach (tab) =>
-        delete @_iconUpdatetime[tab.id]
         @_dirtyTabs[tab.id] = tab.id
         @onUpdated tab.id, {}, tab if tab.active
     title = if @_canSetPopup() then action.title else action.shortTitle
@@ -73,12 +73,11 @@ class ChromeTabs
 
   setIcon: (icon, tabId) ->
     return unless icon?
-    if tabId?
-      ctime = Date.now()
-      if (@_iconUpdatetime[tabId]?) and (ctime - @_iconUpdatetime[tabId]) < 1000
-        return # skip if last update < 1000ms
-      else
-        @_iconUpdatetime[tabId] = ctime
+    ctime = Date.now()
+    if (@_iconUpdatetime[tabId]?) and (ctime - @_iconUpdatetime[tabId]) < 1000
+      return # skip if last update < 1000ms
+    else
+      @_iconUpdatetime[tabId] = ctime
     params = {
       imageData: icon
     }
